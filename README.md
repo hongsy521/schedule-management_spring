@@ -1,0 +1,4 @@
+## 일정 관리 시스템 / Spring
+
+### Use Case Diagram 
+![image](https://github.com/hongsy521/schedule-management_spring/assets/124027140/1caae64f-a81a-4343-a20f-161ae9345352)

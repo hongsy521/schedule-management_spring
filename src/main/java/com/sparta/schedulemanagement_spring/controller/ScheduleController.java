@@ -3,6 +3,7 @@ package com.sparta.schedulemanagement_spring.controller;
 import com.sparta.schedulemanagement_spring.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagement_spring.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement_spring.entity.Schedule;
+import org.apache.coyote.BadRequestException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -56,13 +57,18 @@ public class ScheduleController {
 
     // 일정 수정하기
     @PutMapping("/schedules/{id}")
-    public Long editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) throws BadRequestException {
         if(scheduleList.containsKey(id)){
             Schedule schedule = scheduleList.get(id);
-            schedule.update(requestDto);
-            return schedule.getId();
+            if(schedule.getPassword().equals(requestDto.getPassword())){
+                schedule.update(requestDto);
+            }else {
+                throw new BadRequestException("일치하지 않는 비밀번호입니다.");
+            }
+            ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
+            return responseDto;
         } else {
-            throw new IllegalArgumentException("Schedule not found");
+            throw new IllegalArgumentException("존재하지 않는 일정입니다.");
         }
     }
 }

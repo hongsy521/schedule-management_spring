@@ -5,10 +5,7 @@ import com.sparta.schedulemanagement_spring.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement_spring.entity.Schedule;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -36,7 +33,13 @@ public class ScheduleController {
     @GetMapping("/schedules/{id}")
     public ScheduleResponseDto getSchedule(@PathVariable Long id) {
         Schedule schedule = scheduleList.get(id);
-        ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
+        Long scheduleId=schedule.getId();
+        String title=schedule.getTitle();
+        String contents=schedule.getContents();
+        String manager=schedule.getManager();
+        Date date=schedule.getDate();
+        // password는 보이지 않게 함
+        ScheduleResponseDto responseDto = new ScheduleResponseDto(scheduleId,title,contents,manager,date);
         return responseDto;
     }
 
@@ -44,7 +47,8 @@ public class ScheduleController {
     @GetMapping("/schedules")
     public List<ScheduleResponseDto> getAllSchedules() {
         List<ScheduleResponseDto> responseList = scheduleList.values().stream()
-                .map(ScheduleResponseDto::new).toList();
+                .map(ScheduleResponseDto::new)
+                 .toList();
 
         return responseList;
     }

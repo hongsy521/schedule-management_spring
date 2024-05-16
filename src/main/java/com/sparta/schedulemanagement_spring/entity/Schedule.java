@@ -17,10 +17,15 @@ public class Schedule {
     private Date date;
 
     public Schedule(ScheduleRequestDto requestDto) {
-        this.id = requestDto.getId();
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
         this.date = requestDto.getDate();
     }
 
+    public void update(ScheduleRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.contents = requestDto.getContents();
+        this.date = requestDto.getDate();
+
+    }
 }

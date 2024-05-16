@@ -18,8 +18,8 @@ public class ScheduleController {
 
     // 일정 등록하기
     @PostMapping("/schedules")
-    public ScheduleResponseDto addSchedule(@RequestBody ScheduleRequestDto scheduleRequestDto) {
-        Schedule schedule = new Schedule(scheduleRequestDto);
+    public ScheduleResponseDto addSchedule(@RequestBody ScheduleRequestDto requestDto) {
+        Schedule schedule = new Schedule(requestDto);
 
         // 최대 Id 찾고 id 부여
         Long maxId=scheduleList.size()>0? Collections.max(scheduleList.keySet()) +1 : 1;
@@ -28,8 +28,8 @@ public class ScheduleController {
         // DB 저장
         scheduleList.put(schedule.getId(), schedule);
 
-        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
-        return scheduleResponseDto;
+        ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
+        return responseDto;
     }
 
     // 일정 조회하기
@@ -42,5 +42,14 @@ public class ScheduleController {
     }
 
     // 일정 수정하기
-
+    @PutMapping("/schedules/{scheduleId}")
+    public Long editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
+        if(scheduleList.containsKey(id)){
+            Schedule schedule = scheduleList.get(id);
+            schedule.update(requestDto);
+            return schedule.getId();
+        } else {
+            throw new IllegalArgumentException("Schedule not found");
+        }
+    }
 }

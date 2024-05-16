@@ -32,6 +32,14 @@ public class ScheduleController {
         return responseDto;
     }
 
+    // 특정 일정 조회하기
+    @GetMapping("/schedules/{id}")
+    public ScheduleResponseDto getSchedule(@PathVariable Long id) {
+        Schedule schedule = scheduleList.get(id);
+        ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
+        return responseDto;
+    }
+
     // 일정 조회하기
     @GetMapping("/schedules")
     public List<ScheduleResponseDto> getAllSchedules() {
@@ -42,7 +50,7 @@ public class ScheduleController {
     }
 
     // 일정 수정하기
-    @PutMapping("/schedules/{scheduleId}")
+    @PutMapping("/schedules/{id}")
     public Long editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
         if(scheduleList.containsKey(id)){
             Schedule schedule = scheduleList.get(id);

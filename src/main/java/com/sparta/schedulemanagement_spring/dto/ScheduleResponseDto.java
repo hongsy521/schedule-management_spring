@@ -8,14 +8,18 @@ import java.util.Date;
 @Getter
 public class ScheduleResponseDto {
     private Long id;
+    private Long password;
     private String title;
     private String contents;
+    private String manager;
     private Date date;
 
     public ScheduleResponseDto(Schedule schedule) {
         this.id=schedule.getId();
+        this.password=schedule.getPassword();
         this.title=schedule.getTitle();
         this.contents=schedule.getContents();
+        this.manager=schedule.getManager();
         this.date=schedule.getDate();
     }
 }

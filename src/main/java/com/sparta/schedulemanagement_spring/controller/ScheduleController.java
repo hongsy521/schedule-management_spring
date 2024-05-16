@@ -48,7 +48,8 @@ public class ScheduleController {
     public List<ScheduleResponseDto> getAllSchedules() {
         List<ScheduleResponseDto> responseList = scheduleList.values().stream()
                 .map(ScheduleResponseDto::new)
-                 .toList();
+                .sorted(Comparator.comparing(ScheduleResponseDto::getDate).reversed())  // 날짜 내림차순 정렬
+                .toList();
 
         return responseList;
     }

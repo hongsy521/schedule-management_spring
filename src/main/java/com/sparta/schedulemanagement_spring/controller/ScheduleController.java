@@ -3,6 +3,7 @@ package com.sparta.schedulemanagement_spring.controller;
 import com.sparta.schedulemanagement_spring.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagement_spring.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement_spring.entity.Schedule;
+import com.sparta.schedulemanagement_spring.error.ResourceNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,16 +33,20 @@ public class ScheduleController {
 
     // 특정 일정 조회하기
     @GetMapping("/schedules/{id}")
-    public ScheduleResponseDto getSchedule(@PathVariable Long id) {
-        Schedule schedule = scheduleList.get(id);
-        Long scheduleId=schedule.getId();
-        String title=schedule.getTitle();
-        String contents=schedule.getContents();
-        String manager=schedule.getManager();
-        Date date=schedule.getDate();
-        // password는 보이지 않게 함
-        ScheduleResponseDto responseDto = new ScheduleResponseDto(scheduleId,title,contents,manager,date);
-        return responseDto;
+    public ScheduleResponseDto getSchedule(@PathVariable Long id) throws ResourceNotFoundException {
+        if(scheduleList.containsKey(id)) {
+            Schedule schedule = scheduleList.get(id);
+            Long scheduleId = schedule.getId();
+            String title = schedule.getTitle();
+            String contents = schedule.getContents();
+            String manager = schedule.getManager();
+            Date date = schedule.getDate();
+            // password는 보이지 않게 함
+            ScheduleResponseDto responseDto = new ScheduleResponseDto(scheduleId, title, contents, manager, date);
+            return responseDto;
+        }else {
+            throw new ResourceNotFoundException();
+        }
     }
 
     // 일정 조회하기
@@ -57,7 +62,7 @@ public class ScheduleController {
 
     // 일정 수정하기
     @PutMapping("/schedules/{id}")
-    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) throws BadRequestException {
+    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) throws BadRequestException, ResourceNotFoundException {
         if(scheduleList.containsKey(id)){
             Schedule schedule = scheduleList.get(id);
             if(schedule.getPassword().equals(requestDto.getPassword())){
@@ -68,7 +73,24 @@ public class ScheduleController {
             ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
             return responseDto;
         } else {
-            throw new IllegalArgumentException("존재하지 않는 일정입니다.");
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    // 일정 삭제하기
+    @DeleteMapping("/schedules/{id}")
+    public ScheduleResponseDto deleteSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) throws BadRequestException, ResourceNotFoundException {
+        if(scheduleList.containsKey(id)){
+            Schedule schedule = scheduleList.get(id);
+            if(schedule.getPassword().equals(requestDto.getPassword())){
+                scheduleList.remove(id);
+            }else {
+                throw new BadRequestException("일치하지 않는 비밀번호입니다.");
+            }
+            ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
+            return responseDto;
+        } else {
+            throw new ResourceNotFoundException();
         }
     }
 }

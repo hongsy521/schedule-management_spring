@@ -3,7 +3,7 @@ package com.sparta.schedulemanagement_spring.dto;
 import com.sparta.schedulemanagement_spring.entity.Schedule;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 public class ScheduleResponseDto {
@@ -12,7 +12,9 @@ public class ScheduleResponseDto {
     private String title;
     private String contents;
     private String manager;
-    private Date date;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
+
 
     public ScheduleResponseDto(Schedule schedule) {
         this.id=schedule.getId();
@@ -20,15 +22,7 @@ public class ScheduleResponseDto {
         this.title=schedule.getTitle();
         this.contents=schedule.getContents();
         this.manager=schedule.getManager();
-        this.date=schedule.getDate();
-    }
-
-
-    public ScheduleResponseDto(Long scheduleId, String title, String contents, String manager, Date date) {
-        this.id=scheduleId;
-        this.title=title;
-        this.contents=contents;
-        this.manager=manager;
-        this.date=date;
+        this.createdDate=schedule.getCreatedAt();
+        this.modifiedDate=schedule.getModifiedAt();
     }
 }

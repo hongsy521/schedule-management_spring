@@ -43,14 +43,22 @@ public class ScheduleService {
 
     public ScheduleResponseDto editSchedule(Long id, ScheduleRequestDto requestDto) {
         Schedule schedule = findScheduleById(id);
-        schedule.update(requestDto);
+        if(schedule.getPassword().equals(requestDto.getPassword())){
+            schedule.update(requestDto);
+        }else {
+            throw new IllegalArgumentException("wrong password");
+        }
         return new ScheduleResponseDto(schedule);
     }
 
 
     public ScheduleResponseDto deleteSchedule(Long id, ScheduleRequestDto requestDto) {
         Schedule schedule = findScheduleById(id);
-        scheduleRepository.delete(schedule);
+        if(schedule.getPassword().equals(requestDto.getPassword())){
+            scheduleRepository.delete(schedule);
+        }else {
+            throw new IllegalArgumentException("wrong password");
+        }
         return new ScheduleResponseDto(schedule);
     }
     private Schedule findScheduleById(Long id) {

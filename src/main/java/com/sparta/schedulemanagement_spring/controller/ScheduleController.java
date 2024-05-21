@@ -46,6 +46,7 @@ public class ScheduleController {
     }
 
     // 일정 삭제하기
+    @ExceptionHandler(IllegalArgumentException.class)
     @DeleteMapping("/schedules/{id}")
     public ScheduleResponseDto deleteSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
 

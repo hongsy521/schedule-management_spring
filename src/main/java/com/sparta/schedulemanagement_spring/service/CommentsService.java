@@ -7,6 +7,7 @@ import com.sparta.schedulemanagement_spring.entity.Schedule;
 import com.sparta.schedulemanagement_spring.repository.CommentsRepository;
 import com.sparta.schedulemanagement_spring.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,24 +48,29 @@ public class CommentsService {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->
                 new IllegalArgumentException("일정을 찾을 수 없습니다."));
         // 일정이 존재할 경우에만
-        Comments comments = commentsRepository.findById(commentId).orElseThrow(()->
-                new IllegalArgumentException("댓글을 찾을 수 없습니다."));
-        // 댓글 내용만 수정
-        comments.setComment(requestDto.getComment());
-        // DB에 수정된 댓글 저장
-        Comments updateComments = commentsRepository.save(comments);
+            Comments comments = commentsRepository.findById(commentId).orElseThrow(() ->
+                    new IllegalArgumentException("댓글을 찾을 수 없습니다."));
+            // 댓글 내용만 수정
+            comments.setComment(requestDto.getComment());
+            // DB에 수정된 댓글 저장
+            Comments updateComments = commentsRepository.save(comments);
 
         return new CommentsResponseDto(updateComments);
     }
-    public CommentsResponseDto deleteComment(Long scheduleId, Long commentId) {
+    public String deleteComment(Long scheduleId, Long commentId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->
                 new IllegalArgumentException("일정을 찾을 수 없습니다."));
         // 일정이 존재할 경우에만
-        Comments comments = commentsRepository.findById(commentId).orElseThrow(()->
-                new IllegalArgumentException("댓글을 찾을 수 없습니다."));
+            Comments comments = commentsRepository.findById(commentId).orElseThrow(()->
+                    new IllegalArgumentException("댓글을 찾을 수 없습니다."));
 
-        commentsRepository.delete(comments);
-        return new CommentsResponseDto(comments);
+            try {
+                commentsRepository.delete(comments);
+            }catch (EmptyResultDataAccessException e){
+                e.getMessage();
+            }
+
+        return "일정 삭제에 성공하였습니다.";
     }
 
 

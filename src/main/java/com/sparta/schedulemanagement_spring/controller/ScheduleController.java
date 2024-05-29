@@ -3,6 +3,7 @@ package com.sparta.schedulemanagement_spring.controller;
 import com.sparta.schedulemanagement_spring.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagement_spring.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement_spring.service.ScheduleService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ScheduleController {
 
     // 일정 등록하기
     @PostMapping("/schedules")
-    public ScheduleResponseDto addSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto addSchedule(@RequestBody @Valid ScheduleRequestDto requestDto) {
 
         return scheduleService.addSchedule(requestDto);
     }
@@ -40,7 +41,7 @@ public class ScheduleController {
 
     // 일정 수정하기
     @PutMapping("/schedules/{id}")
-    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody @Valid ScheduleRequestDto requestDto) {
 
         return scheduleService.editSchedule(id,requestDto);
     }
@@ -48,7 +49,7 @@ public class ScheduleController {
     // 일정 삭제하기
     @ExceptionHandler(IllegalArgumentException.class)
     @DeleteMapping("/schedules/{id}")
-    public ScheduleResponseDto deleteSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto deleteSchedule(@PathVariable Long id, @RequestBody @Valid ScheduleRequestDto requestDto) {
 
         return scheduleService.deleteSchedule(id,requestDto);
     }

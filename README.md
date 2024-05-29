@@ -7,4 +7,5 @@
 ![image](https://github.com/hongsy521/schedule-management_spring/assets/124027140/c3fbc6ca-d2fb-4e3d-9006-e7e82ffcc193)
 
 ### ER Diagram
-![image](https://github.com/hongsy521/schedule-management_spring/assets/124027140/e7558b50-cddf-4ee5-a394-4674e806aaa3)
+![image](https://github.com/hongsy521/schedule-management_spring/assets/124027140/c7babd16-36d0-431b-b3a3-28cecc6163a5)
+

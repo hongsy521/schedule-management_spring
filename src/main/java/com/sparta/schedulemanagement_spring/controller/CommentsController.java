@@ -25,12 +25,13 @@ public class CommentsController {
     public List<CommentsResponseDto> getAllComments(@PathVariable Long scheduleId) {
         return commentsService.getAllComments(scheduleId);
     }
-    /*
+
     // 댓글 수정
     @PutMapping("/schedules/{scheduleId}/comments/{commentId}")
     public CommentsResponseDto updateComment(@PathVariable Long scheduleId, @PathVariable Long commentId, @RequestBody CommentsRequestDto requestDto) {
         return commentsService.updateComment(scheduleId,commentId,requestDto);
     }
+    /*
     // 댓글 삭제
     @DeleteMapping("/schedules/{scheduleId}/comments/{commentId}")
     public CommentsResponseDto deleteComment(@PathVariable Long scheduleId, @PathVariable Long commentId) {

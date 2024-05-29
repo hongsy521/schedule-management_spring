@@ -42,11 +42,21 @@ public class CommentsService {
         return responseDtoList;
     }
 
-    /*
-    public CommentsResponseDto updateComment(int scheduleId, int commentId, CommentsRequestDto requestDto) {
-    }
 
-    public CommentsResponseDto deleteComment(int scheduleId, int commentId) {
+    public CommentsResponseDto updateComment(Long scheduleId, Long commentId, CommentsRequestDto requestDto) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->
+                new IllegalArgumentException("일정을 찾을 수 없습니다."));
+        Comments comments = commentsRepository.findById(commentId).orElseThrow(()->
+                new IllegalArgumentException("댓글을 찾을 수 없습니다."));
+        // 댓글 내용만 수정
+        comments.setComment(requestDto.getComment());
+        // DB에 수정된 댓글 저장
+        Comments updateComments = commentsRepository.save(comments);
+
+        return new CommentsResponseDto(updateComments);
+    }
+/*
+    public CommentsResponseDto deleteComment(Long scheduleId, Long commentId) {
     }*/
 
 

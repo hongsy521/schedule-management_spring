@@ -1,17 +1,20 @@
 package com.sparta.schedulemanagement_spring.entity;
 
+import com.sparta.schedulemanagement_spring.dto.CommentsRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "comments")
+@NoArgsConstructor
 public class Comments extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String comment;
@@ -26,4 +29,8 @@ public class Comments extends Timestamped{
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
+    public Comments(CommentsRequestDto requestDto, Schedule schedule) {
+        this.comment = requestDto.getComment();
+        this.schedule = schedule;
+    }
 }

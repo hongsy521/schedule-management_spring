@@ -46,6 +46,7 @@ public class CommentsService {
     public CommentsResponseDto updateComment(Long scheduleId, Long commentId, CommentsRequestDto requestDto) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->
                 new IllegalArgumentException("일정을 찾을 수 없습니다."));
+        // 일정이 존재할 경우에만
         Comments comments = commentsRepository.findById(commentId).orElseThrow(()->
                 new IllegalArgumentException("댓글을 찾을 수 없습니다."));
         // 댓글 내용만 수정
@@ -55,9 +56,16 @@ public class CommentsService {
 
         return new CommentsResponseDto(updateComments);
     }
-/*
     public CommentsResponseDto deleteComment(Long scheduleId, Long commentId) {
-    }*/
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->
+                new IllegalArgumentException("일정을 찾을 수 없습니다."));
+        // 일정이 존재할 경우에만
+        Comments comments = commentsRepository.findById(commentId).orElseThrow(()->
+                new IllegalArgumentException("댓글을 찾을 수 없습니다."));
+
+        commentsRepository.delete(comments);
+        return new CommentsResponseDto(comments);
+    }
 
 
 }

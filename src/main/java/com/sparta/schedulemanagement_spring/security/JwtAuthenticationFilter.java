@@ -1,3 +1,4 @@
+/*
 package com.sparta.schedulemanagement_spring.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -5,6 +6,7 @@ import com.sparta.schedulemanagement_spring.dto.LoginRequestDto;
 import com.sparta.schedulemanagement_spring.entity.UserRoleEnum;
 import com.sparta.schedulemanagement_spring.jwt.JwtUtil;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.io.IOException;
 
 @Slf4j(topic = "로그인 및 JWT 생성")
+@WebFilter("/api/user/login")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final JwtUtil jwtUtil;
 
@@ -60,3 +63,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
 }
+*/

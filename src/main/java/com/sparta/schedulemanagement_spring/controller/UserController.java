@@ -29,4 +29,11 @@ public class UserController {
         return "회원가입 성공";
     }
 
+    // 로그인
+    @PostMapping("/user/login")
+    public String login(@RequestBody @Valid LoginRequestDto requestDto) {
+        return userService.login(requestDto);
+        //return "로그인 성공";
+    }
+
 }

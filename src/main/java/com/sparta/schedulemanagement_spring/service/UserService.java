@@ -4,8 +4,11 @@ import com.sparta.schedulemanagement_spring.dto.LoginRequestDto;
 import com.sparta.schedulemanagement_spring.dto.SignupRequestDto;
 import com.sparta.schedulemanagement_spring.entity.User;
 import com.sparta.schedulemanagement_spring.entity.UserRoleEnum;
+import com.sparta.schedulemanagement_spring.jwt.JwtUtil;
 import com.sparta.schedulemanagement_spring.repository.UserRepository;
+import com.sparta.schedulemanagement_spring.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
 
     // ADMIN_TOKEN
     private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
@@ -44,5 +48,15 @@ public class UserService {
 
     }
 
+    public String login(LoginRequestDto requestDto) {
+        String username = requestDto.getUsername();
+        String password = requestDto.getPassword();
+        Optional<User> checkUser = userRepository.findByUsernameAndPassword(username,password);
+        if(!checkUser.isPresent()){
+            throw new IllegalArgumentException("사용자이름 또는 비밀번호가 잘못되었습니다.");
+        }
+        String tokenValue = jwtUtil.createToken(username,checkUser.get().getRole());
+        return tokenValue;
 
+    }
 }

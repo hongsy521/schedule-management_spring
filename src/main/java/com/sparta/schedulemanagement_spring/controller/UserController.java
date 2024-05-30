@@ -25,23 +25,8 @@ public class UserController {
     // 회원가입
     @PostMapping("/user/signup")
     public String signUp(@RequestBody @Valid SignupRequestDto requestDto) {
-        /*// Validation 예외처리
-        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-        if(fieldErrors.size() > 0) {
-            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                log.error(fieldError.getField() + " 필드 : " + fieldError.getDefaultMessage());
-            }
-            return "redirect:/api/user/signup";
-        }
-*/
         userService.signup(requestDto);
         return "회원가입 성공";
     }
-
-   /* // 로그인
-    @PostMapping("/user/login")
-    public String login(@RequestBody LoginRequestDto requestDto) {
-        return userService.login(requestDto);
-    }*/
 
 }

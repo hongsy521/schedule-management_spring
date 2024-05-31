@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ScheduleResponseDto {
     private Long id;
-    private Long password;
+    private String password;
     private String title;
     private String contents;
     private String manager;

@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 public class ScheduleRequestDto {
     @NotBlank
-    private Long password;
+    private String password;
     @NotBlank
     private String title;
     @NotBlank

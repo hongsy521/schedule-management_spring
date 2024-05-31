@@ -40,5 +40,4 @@ public class CommentsController {
     public String deleteComment(@PathVariable Long scheduleId, @PathVariable Long commentId,@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentsService.deleteComment(scheduleId,commentId,userDetails.getUser());
     }
-
 }

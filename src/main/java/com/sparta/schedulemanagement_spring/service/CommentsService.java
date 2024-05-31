@@ -76,7 +76,7 @@ public class CommentsService {
         commentsRepository.delete(comments);
 
 
-        return "일정 삭제에 성공하였습니다.";
+        return "댓글 삭제에 성공하였습니다.";
     }
 
 

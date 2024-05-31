@@ -16,11 +16,11 @@ public class Comments extends Timestamped{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = false)
     private String comment;
 
     // 코멘트 하나당 사용자 한명 매치(일대일 단방향). Eager타입으로 즉시로딩 정보 바로 가져옴
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 

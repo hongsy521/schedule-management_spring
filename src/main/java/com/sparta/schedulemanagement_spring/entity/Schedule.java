@@ -20,7 +20,7 @@ public class Schedule extends Timestamped{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="password" , nullable = false)
-    private Long password;
+    private String password;
     @Column(name="title" , nullable = false , length = 500)
     private String title;
     @Column(name="contents" , nullable = false , length = 500)

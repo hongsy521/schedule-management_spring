@@ -19,8 +19,8 @@ public class Comments extends Timestamped{
     @Column(nullable = false,unique = false)
     private String comment;
 
-    // 코멘트 하나당 사용자 한명 매치(일대일 단방향). Eager타입으로 즉시로딩 정보 바로 가져옴
-    @OneToOne
+    // 사용자 한명은 여러개의 댓글 작성 가능 (다대일 단방향). Eager타입으로 즉시로딩 정보 바로 가져옴
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

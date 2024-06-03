@@ -52,14 +52,14 @@ public class ScheduleService {
     }
 
 
-    public ScheduleResponseDto deleteSchedule(Long scheduleId, ScheduleRequestDto requestDto) {
+    public String deleteSchedule(Long scheduleId, ScheduleRequestDto requestDto) {
         Schedule schedule = findScheduleById(scheduleId);
         if(schedule.getPassword().equals(requestDto.getPassword())){
             scheduleRepository.delete(schedule);
         }else {
             throw new IllegalArgumentException("wrong password");
         }
-        return new ScheduleResponseDto(schedule);
+        return "일정 삭제에 성공하였습니다.";
     }
     private Schedule findScheduleById(Long scheduleId) {
         return scheduleRepository.findById(scheduleId).orElseThrow(()-> new IllegalArgumentException("일정이 존재하지 않습니다."));

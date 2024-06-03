@@ -61,7 +61,8 @@ public class ScheduleService {
         }
         return "일정 삭제에 성공하였습니다.";
     }
-    private Schedule findScheduleById(Long scheduleId) {
+    public Schedule findScheduleById(Long scheduleId) {
         return scheduleRepository.findById(scheduleId).orElseThrow(()-> new IllegalArgumentException("일정이 존재하지 않습니다."));
     }
+
 }

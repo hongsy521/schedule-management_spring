@@ -36,13 +36,13 @@ public class ScheduleService {
                 .toList();
     }
 
-    public ScheduleResponseDto getSchedule(Long id) {
-        Schedule schedule = findScheduleById(id);
+    public ScheduleResponseDto getSchedule(Long scheduleId) {
+        Schedule schedule = findScheduleById(scheduleId);
         return new ScheduleResponseDto(schedule);
     }
 
-    public ScheduleResponseDto editSchedule(Long id, ScheduleRequestDto requestDto) {
-        Schedule schedule = findScheduleById(id);
+    public ScheduleResponseDto editSchedule(Long scheduleId, ScheduleRequestDto requestDto) {
+        Schedule schedule = findScheduleById(scheduleId);
         if(schedule.getPassword().equals(requestDto.getPassword())){
             schedule.update(requestDto);
         }else {
@@ -52,8 +52,8 @@ public class ScheduleService {
     }
 
 
-    public ScheduleResponseDto deleteSchedule(Long id, ScheduleRequestDto requestDto) {
-        Schedule schedule = findScheduleById(id);
+    public ScheduleResponseDto deleteSchedule(Long scheduleId, ScheduleRequestDto requestDto) {
+        Schedule schedule = findScheduleById(scheduleId);
         if(schedule.getPassword().equals(requestDto.getPassword())){
             scheduleRepository.delete(schedule);
         }else {
@@ -61,7 +61,7 @@ public class ScheduleService {
         }
         return new ScheduleResponseDto(schedule);
     }
-    private Schedule findScheduleById(Long id) {
-        return scheduleRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("일정이 존재하지 않습니다."));
+    private Schedule findScheduleById(Long scheduleId) {
+        return scheduleRepository.findById(scheduleId).orElseThrow(()-> new IllegalArgumentException("일정이 존재하지 않습니다."));
     }
 }

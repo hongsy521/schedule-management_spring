@@ -26,10 +26,10 @@ public class ScheduleController {
     }
 
     // 특정 일정 조회하기
-    @GetMapping("/schedules/{id}")
-    public ScheduleResponseDto getSchedule(@PathVariable Long id) {
+    @GetMapping("/schedules/{scheduleId}")
+    public ScheduleResponseDto getSchedule(@PathVariable Long scheduleId) {
 
-        return scheduleService.getSchedule(id);
+        return scheduleService.getSchedule(scheduleId);
     }
 
     // 일정 조회하기
@@ -40,17 +40,17 @@ public class ScheduleController {
     }
 
     // 일정 수정하기
-    @PutMapping("/schedules/{id}")
-    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody @Valid ScheduleRequestDto requestDto) {
+    @PutMapping("/schedules/{scheduleId}")
+    public ScheduleResponseDto editSchedule(@PathVariable Long scheduleId, @RequestBody @Valid ScheduleRequestDto requestDto) {
 
-        return scheduleService.editSchedule(id,requestDto);
+        return scheduleService.editSchedule(scheduleId,requestDto);
     }
 
     // 일정 삭제하기
     @ExceptionHandler(IllegalArgumentException.class)
-    @DeleteMapping("/schedules/{id}")
-    public ScheduleResponseDto deleteSchedule(@PathVariable Long id, @RequestBody @Valid ScheduleRequestDto requestDto) {
+    @DeleteMapping("/schedules/{scheduleId}")
+    public ScheduleResponseDto deleteSchedule(@PathVariable Long scheduleId, @RequestBody @Valid ScheduleRequestDto requestDto) {
 
-        return scheduleService.deleteSchedule(id,requestDto);
+        return scheduleService.deleteSchedule(scheduleId,requestDto);
     }
 }
